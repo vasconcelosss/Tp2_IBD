@@ -1,0 +1,56 @@
+CREATE TABLE aeronaves (
+    codigo_ocorrencia2 INT PRIMARY KEY,
+    aeronave_matricula TEXT,
+    aeronave_fabricante TEXT,
+    aeronave_modelo TEXT,
+    aeronave_tipo_icao TEXT,
+    aeronave_motor_tipo TEXT,
+    aeronave_motor_quantidade TEXT,
+    aeronave_pmd INTEGER,
+    aeronave_assentos INTEGER,
+    aeronave_ano_fabricacao INTEGER,
+    aeronave_pais_fabricante TEXT,
+    aeronave_pais_registro TEXT,
+    aeronave_registro_categoria TEXT,
+    aeronave_voo_origem TEXT,
+    aeronave_voo_destino TEXT,
+    aeronave_fase_operacao TEXT,
+    aeronave_tipo_operacao TEXT,
+    aeronave_fatalidades_total INTEGER,
+    FOREIGN KEY (codigo_ocorrencia2) REFERENCES ocorrencias_aereas(codigo_ocorrencia2) ON DELETE CASCADE
+);
+
+CREATE TABLE ocorrencias_tipos (
+    codigo_ocorrencia1 INT PRIMARY KEY,
+    ocorrencia_tipo VARCHAR(255),
+    ocorrencia_tipo_categoria VARCHAR(255),
+    taxonomia_tipo_icao VARCHAR(20),
+    FOREIGN KEY (codigo_ocorrencia1) REFERENCES ocorrencias_aereas(codigo_ocorrencia1) ON DELETE CASCADE
+);
+
+CREATE TABLE ocorrencias_aereas (
+    codigo_ocorrencia INT PRIMARY KEY,
+    codigo_ocorrencia1 INT UNIQUE,
+    codigo_ocorrencia2 INT UNIQUE,
+    codigo_ocorrencia3 INT UNIQUE,
+    ocorrencia_classificacao VARCHAR(50),
+    ocorrencia_cidade VARCHAR(100),
+    ocorrencia_uf VARCHAR(2),
+    ocorrencia_pais VARCHAR(50),
+    ocorrencia_aerodromo VARCHAR(10),
+    ocorrencia_dia DATE,
+    ocorrencia_hora TIME,
+    investigacao_aeronave_liberada VARCHAR(3),
+    investigacao_status VARCHAR(50),
+    total_aeronaves_envolvidas INT
+);
+
+CREATE TABLE fatores_contribuintes (
+    codigo_ocorrencia3 INT PRIMARY KEY,
+    fator_nome TEXT,
+    fator_aspecto TEXT,
+    fator_condicionante TEXT,
+    fator_area TEXT,
+    FOREIGN KEY (codigo_ocorrencia3) REFERENCES ocorrencias_aereas(codigo_ocorrencia3) ON DELETE CASCADE
+);
+
